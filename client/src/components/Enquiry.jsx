@@ -68,10 +68,14 @@ function Enquiry() {
   return (
     <div>
       <ToastContainer />
-      <h1 className="text-[40px] text-center py-6 font-bold">User Enquiry</h1>
-      <div className="grid grid-cols-[30%_auto] gap-10">
+      <h1 className="text-3xl sm:text-4xl text-center py-6 font-bold bg-gray-500">
+        User Enquiry
+      </h1>
+      <div className="flex flex-col lg:grid lg:grid-cols-[30%_auto] gap-6 lg:gap-10">
         <div className="bg-gray-200 p-4">
-          <h2 className="text-[20px] font-bold mb-4">Enquiry Form</h2>
+          <h2 className="text-lg sm:text-xl font-bold mb-4 text-center w-full">
+            Enquiry Form
+          </h2>
           <form action="" onSubmit={saveEnquiry} className="max-w-sm mx-auto">
             <div className="py-3">
               <label

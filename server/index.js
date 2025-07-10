@@ -16,7 +16,7 @@ mongoose
   .then(() => {
     console.log("Connected To MongoDB");
     app.listen(process.env.PORT || 3000, () => {
-      console.log("App is Connected on http://localhost:6000/");
+      console.log("App is Connected on http://localhost:8000/");
     });
   })
   .catch((err) => console.log(err));

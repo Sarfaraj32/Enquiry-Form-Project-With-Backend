@@ -15,7 +15,7 @@ mongoose
   .connect(process.env.DBURL)
   .then(() => {
     console.log("Connected To MongoDB");
-    app.listen(process.env.PORT || 3000, () => {
+    app.listen(process.env.PORT, () => {
       console.log("App is Connected on http://localhost:8000/");
     });
   })

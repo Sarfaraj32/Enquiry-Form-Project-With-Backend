@@ -6,30 +6,50 @@ function EnquiryList({ data, getAllEnquiry, Swal, setFormData }) {
   let deleteRow = (delid) => {
     Swal.fire({
       title: "Do you want to delete the data?",
+      text: "This action cannot be undone!",
+      icon: "warning",
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: "Delete",
+      confirmButtonColor: "#d33",
+      cancelButtonText: "Cancel"
     }).then((result) => {
       if (result.isConfirmed) {
         axios
           .delete(`http://localhost:8000/api/website/enquiry/delete/${delid}`)
           .then((res) => {
-            toast.success("Enquiry Deleted Successfully");
-            getAllEnquiry();
+            if (res.data.status) {
+              toast.success("Enquiry Deleted Successfully");
+              getAllEnquiry();
+            } else {
+              toast.error("Failed to delete enquiry");
+            }
+          })
+          .catch((err) => {
+            console.error("Delete error:", err);
+            toast.error("Error deleting enquiry");
           });
       } else if (result.isDenied) {
-        Swal.fire("Changes are not saved", "", "info");
+        // User clicked "Don't save" - do nothing
       }
     });
   };
 
   let editRow = (editid) => {
-    axios(`http://localhost:8000/api/website/enquiry/single/${editid}`).then(
-      (res) => {
-        let data = res.data.enquiry;
-        setFormData(data);
-      }
-    );
+    axios(`http://localhost:8000/api/website/enquiry/single/${editid}`)
+      .then((res) => {
+        if (res.data.status) {
+          let data = res.data.enquiry;
+          setFormData(data);
+          toast.info("Enquiry loaded for editing");
+        } else {
+          toast.error("Failed to load enquiry");
+        }
+      })
+      .catch((err) => {
+        console.error("Edit error:", err);
+        toast.error("Error loading enquiry");
+      });
   };
 
   return (
